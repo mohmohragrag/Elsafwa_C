@@ -50,7 +50,6 @@ function showFields() {
         alert("Invalid section type selected. Please choose a valid option.");
     }
 }
-
 function calculateWeight() {
     const sectionType = document.getElementById("sectionType").value;
     const fields = document.getElementById("fields").children;
@@ -70,101 +69,81 @@ function calculateWeight() {
         switch (sectionType) {
             case "Steel Plates and Sheets":
                 const [lengthPlate, widthPlate, thicknessPlate] = values;
-                weight = (lengthPlate / 1000) * (widthPlate / 1000) * (thicknessPlate / 1000) * density; // in grams
+                weight = (lengthPlate / 1000) * (widthPlate / 1000) * (thicknessPlate / 1000) * density * 1000; // in grams
                 break;
 
             case "Chequered Steel Plates": // حساب الصاج البقلاوه
                 const [lengthCheq, widthCheq, thicknessCheq] = values;
                 const adjustedThickness = thicknessCheq + 0.3; // إضافة 0.3 للسمك
-                weight = (lengthCheq / 1000) * (widthCheq / 1000) * (adjustedThickness / 1000) * density; // in grams
+                weight = (lengthCheq / 1000) * (widthCheq / 1000) * (adjustedThickness / 1000) * density * 1000; // in grams
                 break;
 
             case "Seamless Steel Pipes - Circular":
                 const [lengthPipe, outerDiameter, thicknessPipe] = values;
                 const innerDiameter = outerDiameter - 2 * thicknessPipe;
-                weight = (lengthPipe / 1000) * (Math.PI / 4) * (Math.pow(outerDiameter, 2) - Math.pow(innerDiameter, 2)) * (density); // in grams
+                weight = (lengthPipe / 1000) * (Math.PI / 4) * (Math.pow(outerDiameter, 2) - Math.pow(innerDiameter, 2)) * (density * 1000); // in grams
                 break;
-                
+
             case "Hollow Structural Sections - Square":
                 const [lengthSquare, outerDiameterSquare, thicknessSquare] = values;
-
-                // تحقق من أن القيم المدخلة أكبر من 0
-                if (lengthSquare <= 0 || outerDiameterSquare <= 0 || thicknessSquare <= 0) {
-                    document.getElementById("result").innerHTML = "Please enter valid dimensions greater than zero.";
-                    return;
-                }
-
-                // حساب الوزن بالجرام
-                weight = (outerDiameterSquare - thicknessSquare) * thicknessSquare * 0.025 * lengthSquare; // الوزن بالجرام
+                weight = (outerDiameterSquare - thicknessSquare) * thicknessSquare * 0.025 * lengthSquare * 1000; // الوزن بالجرام
                 break;
 
             case "Hollow Structural Sections - Rectangular":
                 const [lengthRect, widthRect, heightRect, thicknessRect] = values;
-                weight = lengthRect * ((widthRect * heightRect) - ((widthRect - 2 * thicknessRect) * (heightRect - 2 * thicknessRect))) * density; // in grams
+                weight = lengthRect * ((widthRect * heightRect) - ((widthRect - 2 * thicknessRect) * (heightRect - 2 * thicknessRect))) * density * 1000; // in grams
                 break;
 
             case "Round Steel Bars":
                 const [lengthRound, diameterRound] = values;
-                weight = lengthRound * (Math.PI / 4) * Math.pow(diameterRound, 2) * density; // in grams
+                weight = lengthRound * (Math.PI / 4) * Math.pow(diameterRound, 2) * density * 1000; // in grams
                 break;
 
             case "Square Steel Bars":
                 const [lengthSquareBar, sideLengthSquareBar] = values;
-                weight = lengthSquareBar * Math.pow(sideLengthSquareBar, 2) * density; // in grams
+                weight = lengthSquareBar * Math.pow(sideLengthSquareBar, 2) * density * 1000; // in grams
                 break;
 
             case "Flat Bars":
                 const [lengthFlat, widthFlat, thicknessFlat] = values;
-                weight = lengthFlat * widthFlat * (thicknessFlat / 1000) * density; // in grams
+                weight = lengthFlat * widthFlat * (thicknessFlat / 1000) * density * 1000; // in grams
                 break;
 
             case "Equal Angles":
                 const [lengthAngle, legLengthAngle, thicknessAngle] = values;
-                weight = 2 * lengthAngle * (legLengthAngle / 1000 * thicknessAngle / 1000) * density; // in grams
+                weight = 2 * lengthAngle * (legLengthAngle / 1000 * thicknessAngle / 1000) * density * 1000; // in grams
                 break;
 
             case "Unequal Angles": {
-                const [lengthUnequalAngle, legLength1, legLength2, thicknessUnequal] = values; // تأكد من إضافة thicknessUnequal هنا
-                // تحقق من أن القيم المدخلة صالحة
+                const [lengthUnequalAngle, legLength1, legLength2, thicknessUnequal] = values;
                 if (lengthUnequalAngle <= 0 || legLength1 <= 0 || legLength2 <= 0 || thicknessUnequal <= 0) {
                     document.getElementById("result").innerHTML = "Please enter valid dimensions for all fields. Values must be greater than zero.";
                     return; // توقف عن تنفيذ الكود إذا كانت القيم غير صالحة
                 }
-
-                // حساب الوزن
-                weight = lengthUnequalAngle * 
-                         ((legLength1 * thicknessUnequal) + 
-                          (legLength2 * thicknessUnequal) - 
-                          (thicknessUnequal ** 2)) * 
-                         density; // in grams
-                
+                weight = lengthUnequalAngle *
+                    ((legLength1 * thicknessUnequal) +
+                    (legLength2 * thicknessUnequal) -
+                    (thicknessUnequal ** 2)) *
+                    density * 1000; // in grams
                 break;
             }
 
             case "T-profile":
                 const [lengthT, widthT, heightT, thicknessT] = values;
-                // Calculate the weight of the T-profile
-                weight = lengthT * ((widthT * heightT) - ((widthT - thicknessT) * (heightT - thicknessT))) * density; // in grams
+                weight = lengthT * ((widthT * heightT) - ((widthT - thicknessT) * (heightT - thicknessT))) * density * 1000; // in grams
                 break;
 
             case "Hexagonal Sections": {
-                const [lengthHexagon, flatToFlatDistance] = values; // المسافة بين الجوانب المتقابلة
-                const sideLength = flatToFlatDistance / Math.sqrt(3); // حساب طول الجانب بناءً على المسافة بين الجوانب المتقابلة
-                
-                // Calculate the area of the hexagonal section
+                const [lengthHexagon, flatToFlatDistance] = values;
+                const sideLength = flatToFlatDistance / Math.sqrt(3);
                 const areaHexagon = (3 * Math.sqrt(3) / 2) * Math.pow(sideLength, 2);
-                
-                // Calculate the weight: طول × المساحة × الكثافة (الوزن = الطول × المساحة × الكثافة)
-                weight = lengthHexagon * areaHexagon * density; // in grams
+                weight = lengthHexagon * areaHexagon * density * 1000; // in grams
                 break;
             }
         }
-        
-        // تحويل الوزن من جرام إلى كيلوغرام
-        const weightInKg = weight / 1000; // التحويل من جرام إلى كيلوغرام
 
         // عرض الوزن
-        document.getElementById("result").innerHTML = `Weight: ${weightInKg.toFixed(2)} g`;
+        document.getElementById("result").innerHTML = `Weight: ${weight.toFixed(2)} g`;
     } else {
         document.getElementById("result").innerHTML = "Please select a steel section type and enter the dimensions.";
     }
