@@ -137,5 +137,6 @@ function calculateWeight() {
         }
     }
 
-    document.getElementById("result").innerHTML = `Weight: ${weight.toFixed(2)} kg`; // Show weight in kg
+    weight = weight * 1000; // Convert kg to g
+    document.getElementById("result").innerHTML = `Weight: ${weight.toFixed(2)} g`; // Show weight in grams
 }
