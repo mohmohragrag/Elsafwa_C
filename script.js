@@ -89,7 +89,7 @@ function calculateWeight() {
                 const thicknessM = thicknessSquare / 1000; // Convert mm to m
                 const outerArea = Math.pow(sideLengthM, 2); // مساحة المقطع الخارجي
                 const innerArea = Math.pow(sideLengthM - 2 * thicknessM, 2); // مساحة المقطع الداخلي
-                weight = lengthM * (outerArea - innerArea) * density; // بالكيلو جرام
+                weight = lengthM * (outerArea - innerArea) * density/1000000; // بالكيلو جرام
                 break;
 
             case "Hollow Structural Sections - Rectangular":
