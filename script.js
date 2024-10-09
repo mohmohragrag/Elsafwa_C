@@ -83,9 +83,21 @@ function calculateWeight() {
                 break;
 
             case "Hollow Structural Sections - Square":
-                const [lengthSquare, sideLengthSquare, thicknessSquare] = values;
-                weight = (lengthSquare / 1000) * (Math.pow(sideLengthSquare / 1000, 2) - Math.pow((sideLengthSquare - 2 * thicknessSquare) / 1000, 2)) * density; // in kg
-                break;
+                    const [lengthSquare, sideLengthSquare, thicknessSquare] = values;
+                    
+                    // تحويل الأبعاد من مليمتر إلى متر
+                    const lengthM = lengthSquare / 1000;
+                    const sideLengthM = sideLengthSquare / 1000;
+                    const thicknessM = thicknessSquare / 1000;
+    
+                    // حساب المساحة الخارجية والداخلية
+                    const outerArea = Math.pow(sideLengthM, 2); // مساحة المقطع الخارجي
+                    const innerArea = Math.pow(sideLengthM - 2 * thicknessM, 2); // مساحة المقطع الداخلي
+    
+                    // حساب الوزن
+                    weight = lengthM * (outerArea - innerArea) * density; // بالكيلو جرام
+                    break;
+    
 
             case "Hollow Structural Sections - Rectangular":
                 const [lengthRect, widthRect, heightRect, thicknessRect] = values;
