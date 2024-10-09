@@ -86,16 +86,16 @@ function calculateWeight() {
                     const [lengthSquare, sideLengthSquare, thicknessSquare] = values;
                     
                     // تحويل الأبعاد من مليمتر إلى متر
-                    const lengthM = lengthSquare / 1000;
-                    const sideLengthM = sideLengthSquare / 1000;
-                    const thicknessM = thicknessSquare / 1000;
+                    const lengthM = lengthSquare ;
+                    const sideLengthM = sideLengthSquare ;
+                    const thicknessM = thicknessSquare ;
     
                     // حساب المساحة الخارجية والداخلية
                     const outerArea = Math.pow(sideLengthM, 2); // مساحة المقطع الخارجي
                     const innerArea = Math.pow(sideLengthM - 2 * thicknessM, 2); // مساحة المقطع الداخلي
     
                     // حساب الوزن
-                    weight = lengthM * (outerArea - innerArea) * density; // بالكيلو جرام
+                    weight = lengthM * (outerArea - innerArea) * density/1000; // بالكيلو جرام
                     break;
     
 
