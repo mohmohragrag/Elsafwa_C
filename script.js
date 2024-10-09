@@ -54,7 +54,7 @@ function showFields() {
 function calculateWeight() {
     const sectionType = document.getElementById("sectionType").value;
     const fields = document.getElementById("fields").children;
-    const density = 7850; // kg/m³ for steel
+    const density = 7.850; // kg/m³ for steel
     let weight = 0;
 
     if (sectionType && fields.length > 0) {
@@ -68,13 +68,13 @@ function calculateWeight() {
         switch (sectionType) {
             case "Steel Plates and Sheets":
                 const [lengthPlate, widthPlate, thicknessPlate] = values;
-                weight = (lengthPlate / 1000) * (widthPlate / 1000) * (thicknessPlate / 1000) * density; // in kg
+                weight = (lengthPlate) * (widthPlate ) * (thicknessPlate ) * density; // in kg
                 break;
 
             case "Chequered Steel Plates": // حساب الصاج البقلاوه
                 const [lengthCheq, widthCheq, thicknessCheq] = values;
                 const adjustedThickness = thicknessCheq + 0.3; // Add 0.3 to thickness
-                weight = (lengthCheq / 1000) * (widthCheq / 1000) * (adjustedThickness / 1000) * density; // in kg
+                weight = (lengthCheq) * (widthCheq) * (adjustedThickness ) * density; // in kg
                 break;
 
             case "Seamless Steel Pipes - Circular":
@@ -95,53 +95,53 @@ function calculateWeight() {
                     const innerArea = Math.pow(sideLengthM - 2 * thicknessM, 2); // مساحة المقطع الداخلي
     
                     // حساب الوزن
-                    weight = lengthM * (outerArea - innerArea) * density/1000; // بالكيلو جرام
+                    weight = lengthM * (outerArea - innerArea) * density; // بالكيلو جرام
                     break;
     
 
             case "Hollow Structural Sections - Rectangular":
                 const [lengthRect, widthRect, heightRect, thicknessRect] = values;
-                weight = (lengthRect / 1000) * ((widthRect / 1000) * (heightRect / 1000) - ((widthRect - 2 * thicknessRect) / 1000) * ((heightRect - 2 * thicknessRect) / 1000)) * density; // in kg
+                weight = (lengthRect ) * ((widthRect) * (heightRect ) - ((widthRect - 2 * thicknessRect) ) * ((heightRect - 2 * thicknessRect))) * density; // in kg
                 break;
 
             case "Round Steel Bars":
                 const [lengthRound, diameterRound] = values;
-                weight = (lengthRound / 1000) * (Math.PI / 4) * Math.pow(diameterRound / 1000, 2) * density; // in kg
+                weight = (lengthRound ) * (Math.PI / 4) * Math.pow(diameterRound , 2) * density; // in kg
                 break;
 
             case "Square Steel Bars":
                 const [lengthSquareBar, sideLengthSquareBar] = values;
-                weight = (lengthSquareBar / 1000) * Math.pow(sideLengthSquareBar / 1000, 2) * density; // in kg
+                weight = (lengthSquareBar) * Math.pow(sideLengthSquareBar , 2) * density; // in kg
                 break;
 
             case "Flat Bars":
                 const [lengthFlat, widthFlat, thicknessFlat] = values;
-                weight = (lengthFlat / 1000) * (widthFlat / 1000) * (thicknessFlat / 1000) * density; // in kg
+                weight = (lengthFlat) * (widthFlat ) * (thicknessFlat ) * density; // in kg
                 break;
 
             case "Equal Angles":
                 const [lengthAngle, legLengthAngle, thicknessAngle] = values;
-                weight = 2 * (lengthAngle / 1000) * (legLengthAngle / 1000 * thicknessAngle / 1000) * density; // in kg
+                weight = 2 * (lengthAngle ) * (legLengthAngle  * thicknessAngle ) * density; // in kg
                 break;
 
             case "Unequal Angles":
                 const [lengthUnequalAngle, legLength1, legLength2, thicknessUnequal] = values;
-                weight = (lengthUnequalAngle / 1000) *
-                    ((legLength1 / 1000 * thicknessUnequal / 1000) +
-                        (legLength2 / 1000 * thicknessUnequal / 1000) -
-                        Math.pow(thicknessUnequal / 1000, 2)) * density; // in kg
+                weight = (lengthUnequalAngle ) *
+                    ((legLength1  * thicknessUnequal) +
+                        (legLength2 * thicknessUnequal ) -
+                        Math.pow(thicknessUnequal , 2)) * density; // in kg
                 break;
 
             case "T-profile":
                 const [lengthT, widthT, heightT, thicknessT] = values;
-                weight = (lengthT / 1000) * ((widthT / 1000 * heightT / 1000) - ((widthT - thicknessT) / 1000 * (heightT - thicknessT) / 1000)) * density; // in kg
+                weight = (lengthT ) * ((widthT  * heightT ) - ((widthT - thicknessT)  * (heightT - thicknessT) )) * density; // in kg
                 break;
 
             case "Hexagonal Sections":
                 const [lengthHexagon, flatToFlatDistance] = values;
                 const sideLength = flatToFlatDistance / Math.sqrt(3); // Calculate side length from flat-to-flat distance
-                const areaHexagon = (3 * Math.sqrt(3) / 2) * Math.pow(sideLength / 1000, 2); // in m²
-                weight = (lengthHexagon / 1000) * areaHexagon * density; // kg
+                const areaHexagon = (3 * Math.sqrt(3) / 2) * Math.pow(sideLength, 2); // in m²
+                weight = (lengthHexagon ) * areaHexagon * density; // kg
                 break;
         }
 
